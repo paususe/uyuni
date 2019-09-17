@@ -1,0 +1,5 @@
+spacecmd (4.0.12-1) unstable; urgency=medium
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Pau Garcia Quiles <pau.garcia@suse.com>  Wed, 18 Sep 2019 00:46:22 +0200
