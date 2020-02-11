@@ -7,7 +7,7 @@ DOCKER_REGISTRY       = registry.mgr.suse.de
 DOCKER_VOLUMES        = -v "$(CURDIR)/../:/manager"
 DOCKER_PG_PORTS       = -p 5432:5432
 DOCKER_ORA_PORTS      = -p 1521:1521
-DOCKER_COMMON_OPTS    = --interactive --tty --rm
+DOCKER_COMMON_OPTS    = --interactive --tty --rm -e PGDATA=/var/lib/pgsql/data
 
 all :: dockerrun_pg
 

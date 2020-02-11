@@ -4,9 +4,12 @@ set -e
 MANAGER_USER="spacewalk"
 MANAGER_PASS="spacewalk"
 MANAGER_DB_NAME="susemanager"
+PGDATA="/var/lib/pgsql/data"
 
-su - postgres -c "/usr/lib/postgresql10/bin/pg_ctl initdb"
-su - postgres -c "/usr/lib/postgresql10/bin/pg_ctl start"
+chmod +x /var/lib/pgsql/.bash_profile /usr/share/postgresql/bash_profile
+
+su - postgres -c "/usr/lib/postgresql10/bin/pg_ctl -D $PGDATA initdb"
+su - postgres -c "/usr/lib/postgresql10/bin/pg_ctl -D $PGDATA start"
 
 su - postgres -c "createdb $MANAGER_DB_NAME ; echo \"CREATE ROLE $MANAGER_USER PASSWORD '$MANAGER_PASS' SUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;\" | psql"
 echo "listen_addresses = '*'" >> /var/lib/pgsql/data/postgresql.conf
@@ -19,4 +22,4 @@ mv /var/lib/pgsql/data/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf.bak
 mv /tmp/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf
 
 #rm /etc/rhn/rhn.conf
-su - postgres -c "/usr/lib/postgresql10/bin/pg_ctl stop"
+su - postgres -c "/usr/lib/postgresql10/bin/pg_ctl -D $PGDATA stop"
