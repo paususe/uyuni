@@ -69,6 +69,12 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
+/*
+ * TODO MICROSOFTWINDOWS
+ * Some table to match osversion (e. g. 10.0.18363) to the Windows version (build, actually, e. g. 1909) would be handy.
+ * This website contains details: https://microsoft.fandom.com/wiki/Windows_10_version_history
+ */
+
 /**
  * Common registration logic that can be used from multiple places
  */
@@ -366,6 +372,13 @@ public class RegistrationUtils {
         else if ("ubuntu".equalsIgnoreCase(grains.getValueAsString(OS))) {
             SUSEProduct product = SUSEProductFactory.findSUSEProduct("ubuntu-client",
                     grains.getValueAsString("osrelease"), null, grains.getValueAsString(OS_ARCH) + "-deb", false);
+            if (product != null) {
+                return Collections.singleton(product);
+            }
+        }
+        else if ("windows".equalsIgnoreCase(grains.getValueAsString(OS))) {
+            SUSEProduct product = SUSEProductFactory.findSUSEProduct("windows-client",
+                    grains.getValueAsString("osrelease"), null, grains.getValueAsString(OS_ARCH) + "-msu", false);
             if (product != null) {
                 return Collections.singleton(product);
             }

@@ -28,6 +28,7 @@ public class ServerConstants {
     public static final String LEAP = "Leap";
     public static final String UBUNTU = "Ubuntu";
     public static final String REDHAT = "RedHat";
+    public static final String WINDOWS = "Windows";
 
     private ServerConstants() {
 

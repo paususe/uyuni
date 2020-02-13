@@ -377,6 +377,10 @@ public class RegisterMinionEventMessageAction implements MessageAction {
                 minion.setServerArch(
                         ServerFactory.lookupServerArchByLabel(osarch + "-debian-linux"));
             }
+            else if (osfamily.equals("Windows")) {
+                minion.setServerArch(
+                        ServerFactory.lookupServerArchByLabel(osarch + "-windows"));
+            }
             else {
                 minion.setServerArch(
                         ServerFactory.lookupServerArchByLabel(osarch + "-redhat-linux"));
@@ -568,6 +572,9 @@ public class RegisterMinionEventMessageAction implements MessageAction {
      * @param machineId the machine-id
      * @param grains the grains
      * @return a migrated or new MinionServer instance
+     * 
+     * TODO MICROSOFTWINDOWS
+     * 
      */
     private MinionServer migrateOrCreateSystem(String minionId,
             boolean isSaltSSH,
@@ -687,6 +694,9 @@ public class RegisterMinionEventMessageAction implements MessageAction {
         }
     }
 
+    /*
+     * TODO MICROSOFTWINDOWS
+     */
     private void giveCapabilities(MinionServer server) {
         // Salt systems always have the script.run capability
         SystemManager.giveCapability(server.getId(), SystemManager.CAP_SCRIPT_RUN, 1L);
@@ -707,6 +717,9 @@ public class RegisterMinionEventMessageAction implements MessageAction {
                 SystemManager.CAP_CONFIGFILES_UPLOAD, 1L);
     }
 
+    /*
+     * TODO MICROSOFTWINDOWS
+     */
     private ContactMethod getContactMethod(Optional<ActivationKey> activationKey,
             boolean isSshPush,
             String minionId) {
@@ -714,7 +727,7 @@ public class RegisterMinionEventMessageAction implements MessageAction {
                 activationKey,
                 () -> isSshPush ?
                         ServerFactory.findContactMethodByLabel("ssh-push") :
-                        ServerFactory.findContactMethodByLabel("default"),
+                        ServerFactory.findContactMethodByLabel("default"), 
                 ak -> {
                     if (!isSshPush && isSSHPushContactMethod(ak.getContactMethod())) {
                         LOG.warn("Contact method changed from ssh-push to default for " +
@@ -784,6 +797,10 @@ public class RegisterMinionEventMessageAction implements MessageAction {
                 .get();
     }
 
+    /*
+     * TODO MICROSOFTWINDOWS
+     * This might be the cause minion registration does not work
+     */
     private String getOsRelease(String minionId, ValueMap grains) {
         // java port of up2dataUtils._getOSVersionAndRelease()
         String osRelease = grains.getValueAsString("osrelease");

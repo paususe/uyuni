@@ -129,5 +129,10 @@ insert into rhnServerArch (id, label, name, arch_type_id) values
 insert into rhnServerArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_server_arch_id_seq'), 'cloud', 'cloud', lookup_arch_type('rpm'));
 
+insert into rhnServerArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_server_arch_id_seq'), 'amd64-windows', 'amd64 Windows', lookup_arch_type('msu'));
+
+-- TODO MICROSOFTWINDOWS another rhnServerArch may be needed for msi archType
+
 commit;
 

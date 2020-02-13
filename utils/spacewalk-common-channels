@@ -57,7 +57,8 @@ CHANNEL_ARCH = {
     's390-deb':     'channel-s390-deb',
     'powerpc-deb':  'channel-powerpc-deb',
     'arm-deb':      'channel-arm-deb',
-    'mips-deb':     'channel-mips-deb'
+    'mips-deb':     'channel-mips-deb',
+    'amd64-msu':    'channel-amd64-msu'
 
 }
 

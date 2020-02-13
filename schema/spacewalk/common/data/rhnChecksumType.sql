@@ -15,6 +15,7 @@
 --
 --
 --
+-- TODO MICROSOFTWINDOWS
 
 
 insert into rhnChecksumType (id, label, description) values

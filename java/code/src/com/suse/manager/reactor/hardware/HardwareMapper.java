@@ -100,6 +100,7 @@ public class HardwareMapper {
      * Store CPU information given as a {@link ValueMap}.
      *
      * @param cpuinfo Salt returns /proc/cpuinfo data
+     * TODO MICROSOFTWINDOWS
      */
     public void mapCpuInfo(ValueMap cpuinfo) {
         final CPU cpu = Optional.ofNullable(server.getCpu()).orElseGet(CPU::new);

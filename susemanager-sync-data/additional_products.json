@@ -1,5 +1,42 @@
 [
     {
+        "id" : -10,
+        "name" : "Microsoft Windows 10",
+        "identifier" : "Microsoft-Windows",
+        "former_identifier" : "",
+        "version" : "10",
+        "release_type" : null,
+        "arch" : "amd64",
+        "friendly_name" : "Windows 10",
+        "product_class" : "SLE-M-T",
+        "cpe" : null,
+        "free" : false,
+        "description" : null,
+        "release_stage" : "released",
+        "eula_url" : "",
+        "product_type" : "base",
+        "offline_predecessor_ids" : [
+        ],
+        "online_predecessor_ids" : [
+        ],
+        "shortname" : null,
+        "recommended" : false,
+        "extensions" : [
+        ],
+        "repositories" : [
+            {
+                "id" : -99,
+                "url" : "http://localhost/pub/repositories/empty-msu/",
+                "name" : "windows-10-1909-pool",
+                "distro_target" : "amd64",
+                "description" : "Windows 10",
+                "enabled" : true,
+                "autorefresh" : false,
+                "installer_updates" : false
+            }
+        ]
+    },
+    {
         "id" : -9,
         "name" : "Open Enterprise Server 2018 SP2",
         "identifier" : "Open_Enterprise_Server",

@@ -80,6 +80,7 @@ import java.util.stream.Collectors;
  * @xmlrpc.namespace activationkey
  * @xmlrpc.doc Contains methods to access common activation key functions
  * available from the web interface.
+ * TODO MICROSOFTWINDOWS
  */
 public class ActivationKeyHandler extends BaseHandler {
 

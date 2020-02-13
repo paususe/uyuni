@@ -88,5 +88,11 @@ insert into rhnChannelArch (id, label, name, arch_type_id) values
 insert into rhnChannelArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_channel_arch_id_seq'), 'channel-mips-deb', 'mips Debian', lookup_arch_type('deb'));
 
+insert into rhnChannelArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-amd64-msu', 'AMD64 Windows updates', lookup_arch_type('msu'));
+
+insert into rhnChannelArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_channel_arch_id_seq'), 'channel-amd64-msi', 'AMD64 Windows installers', lookup_arch_type('msi'));
+
 commit;
 

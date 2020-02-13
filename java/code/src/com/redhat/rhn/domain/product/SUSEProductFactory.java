@@ -44,6 +44,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/*
+ * TODO MICROSOFTWINDOWS
+ */
+
 /**
  * SUSEProductFactory - the class used to fetch and store
  * {@link SUSEProduct} objects from the database.

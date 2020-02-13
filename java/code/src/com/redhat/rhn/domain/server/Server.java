@@ -62,6 +62,10 @@ import org.apache.log4j.Logger;
 import org.cobbler.CobblerConnection;
 import org.cobbler.SystemRecord;
 
+/*
+ * TODO MICROSOFTWINDOWS
+ */
+
 /**
  * Server - Class representation of the table rhnServer.
  */

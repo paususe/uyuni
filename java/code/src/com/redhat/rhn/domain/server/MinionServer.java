@@ -29,6 +29,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+/*
+ * TODO MICROSOFTWINDOWS
+ * pagarcia: implement this in the future, when monitoring Windows is supported by us (i. e. packages offered)
+ */
+
 /**
  * MinionServer
  */

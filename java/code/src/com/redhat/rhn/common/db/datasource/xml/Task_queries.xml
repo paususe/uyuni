@@ -1,5 +1,7 @@
 <datasource_modes>
 
+<!-- TODO MICROSOFTWINDOWS -->
+
 <mode name="auto_errata_candidates">
   <query>
 select distinct s.id as server_id, s.org_id, snc.errata_id

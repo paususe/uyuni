@@ -15,4 +15,6 @@ insert into suseServerContactMethod (id, label, name, rank) values
 	(1, 'ssh-push', 'server.contact-method.ssh-push', 10);
 insert into suseServerContactMethod (id, label, name, rank) values
 	(2, 'ssh-push-tunnel', 'server.contact-method.ssh-push-tunnel', 20);
+insert into suseServerContactMethod (id, label, name, rank) values
+	(3, 'windows', 'server.contact-method.windows', 30);
 

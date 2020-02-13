@@ -166,6 +166,10 @@ import static java.util.Collections.singletonMap;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 
+/*
+ * TODO MICROSOFTWINDOWS
+ */
+
 /**
  * Takes {@link Action} objects to be executed via salt.
  */
@@ -1639,6 +1643,11 @@ public class SaltServerActionService {
 
         return ret;
     }
+
+    /*
+     * TODO MICROSOFTWINDOWS
+     * pagarcia: I don't think this will be needed but better take a look at this calmly in the future
+     */
 
     private String buildKernelOptions(SystemRecord sys, Profile prof, Distro dist, String host) {
         String breed = dist.getBreed();

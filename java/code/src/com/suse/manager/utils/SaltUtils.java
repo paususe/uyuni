@@ -15,6 +15,10 @@
 
 package com.suse.manager.utils;
 
+/*
+ * TODO MICROSOFTWINDOWS
+ */
+
 import static com.suse.manager.webui.services.SaltConstants.SCRIPTS_DIR;
 import static com.suse.manager.webui.services.SaltConstants.SUMA_STATE_FILES_ROOT_PATH;
 
@@ -1190,6 +1194,18 @@ public class SaltUtils {
                 server.setInstalledProducts(Collections.singleton(installedProduct));
             }
         }
+        else if ("windows".equalsIgnoreCase((String) result.getGrains().get("os"))) {
+        	String osArch = result.getGrains().get("osarch") + "-msu";
+            String osVersion = (String) result.getGrains().get("osrelease");
+            // Check if we have a product for the specific arch and version
+            SUSEProduct windowsProduct = SUSEProductFactory.findSUSEProduct("windows-client", osVersion, null, osArch,
+                    false);
+            if (windowsProduct != null) {
+                InstalledProduct installedProduct = SUSEProductFactory.findInstalledProduct(windowsProduct)
+                        .orElse(new InstalledProduct(windowsProduct));
+                server.setInstalledProducts(Collections.singleton(installedProduct));
+            }
+        }
 
         // Update live patching version
         server.setKernelLiveVersion(result.getKernelLiveVersionInfo()
@@ -1513,6 +1529,11 @@ public class SaltUtils {
                     }));
         }).collect(Collectors.toSet());
     }
+
+    /*
+     * TODO MICROSOFTWINDOWS
+     * Implement getInstalledProductsForWindows
+     */
 
     private static Set<InstalledProduct> getInstalledProductsForRhel(
            MinionServer server,

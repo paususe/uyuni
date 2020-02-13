@@ -24,3 +24,5 @@ insert into rhnErrataFileType ( id, label )
 insert into rhnErrataFileType ( id, label )
 	values ( sequence_nextval('rhn_erratafile_type_id_seq'), 'OVAL' );
 
+-- TODO MICROSOFTWINDOWS
+
