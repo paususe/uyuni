@@ -58,7 +58,7 @@ CHANNEL_ARCH = {
     'powerpc-deb':  'channel-powerpc-deb',
     'arm-deb':      'channel-arm-deb',
     'mips-deb':     'channel-mips-deb',
-    'amd64-msu':    'channel-amd64-msu'
+    'amd64-windows':    'channel-amd64-windows'
 
 }
 

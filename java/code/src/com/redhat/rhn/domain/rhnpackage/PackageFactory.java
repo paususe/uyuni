@@ -58,7 +58,7 @@ public class PackageFactory extends HibernateFactory {
     public static final String ARCH_TYPE_RPM = "rpm";
     public static final String ARCH_TYPE_DEB = "deb";
     public static final String ARCH_TYPE_TAR = "tar";
-    public static final String ARCH_TYPE_MSU = "msu";
+    public static final String ARCH_TYPE_WINDOWS = "windows";
 
     private static final Map<String, Set<String>> PACKAGE_CAPABILITY_MAP;
     static {
@@ -74,10 +74,14 @@ public class PackageFactory extends HibernateFactory {
         Set<String> debCaps = new HashSet<String>();
         debCaps.add("dependencies");
         debCaps.add("deb");
-        Set<String> msuCaps = new HashSet<String>();
-        msuCaps.add("dependencies");
-        msuCaps.add("msu");        
         map.put(PackageFactory.ARCH_TYPE_DEB, debCaps);
+        Set<String> windowsCaps = new HashSet<String>();
+        windowsCaps.add("dependencies");
+        windowsCaps.add("change_log");
+        windowsCaps.add("file_list");
+        windowsCaps.add("errata");
+        windowsCaps.add("windows");
+        map.put(PackageFactory.ARCH_TYPE_WINDOWS, windowsCaps);
         PACKAGE_CAPABILITY_MAP = Collections.unmodifiableMap(map);
     }
 

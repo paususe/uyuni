@@ -109,9 +109,7 @@ insert into rhnPackageArch (id, label, name, arch_type_id) values
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'amd64-deb', 'AMD64-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_package_arch_id_seq'), 'amd64-msu', 'amd64-msu', lookup_arch_type('msu'));
-insert into rhnPackageArch (id, label, name, arch_type_id) values
-(sequence_nextval('rhn_package_arch_id_seq'), 'amd64-msi', 'amd64-msi', lookup_arch_type('msi'));
+(sequence_nextval('rhn_package_arch_id_seq'), 'amd64-windows', 'amd64-windows', lookup_arch_type('windows'));
 
 commit;
 

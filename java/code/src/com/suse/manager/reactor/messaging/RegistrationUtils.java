@@ -378,7 +378,7 @@ public class RegistrationUtils {
         }
         else if ("windows".equalsIgnoreCase(grains.getValueAsString(OS))) {
             SUSEProduct product = SUSEProductFactory.findSUSEProduct("windows-client",
-                    grains.getValueAsString("osrelease"), null, grains.getValueAsString(OS_ARCH) + "-msu", false);
+                    grains.getValueAsString("osrelease"), null, grains.getValueAsString(OS_ARCH) + "-windows", false);
             if (product != null) {
                 return Collections.singleton(product);
             }

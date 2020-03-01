@@ -133,10 +133,7 @@ insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('armv7l-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-arm-deb'));
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
-(LOOKUP_SERVER_ARCH('amd64-windows'), LOOKUP_CHANNEL_ARCH('channel-amd64-msu'));
-
-insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
-(LOOKUP_SERVER_ARCH('amd64-windows'), LOOKUP_CHANNEL_ARCH('channel-amd64-msi'));
+(LOOKUP_SERVER_ARCH('amd64-windows'), LOOKUP_CHANNEL_ARCH('channel-amd64-windows'));
 
 commit;
 

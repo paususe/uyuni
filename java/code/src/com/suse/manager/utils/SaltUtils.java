@@ -1195,7 +1195,7 @@ public class SaltUtils {
             }
         }
         else if ("windows".equalsIgnoreCase((String) result.getGrains().get("os"))) {
-        	String osArch = result.getGrains().get("osarch") + "-msu";
+        	String osArch = result.getGrains().get("osarch") + "-windows";
             String osVersion = (String) result.getGrains().get("osrelease");
             // Check if we have a product for the specific arch and version
             SUSEProduct windowsProduct = SUSEProductFactory.findSUSEProduct("windows-client", osVersion, null, osArch,

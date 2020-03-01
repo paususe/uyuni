@@ -346,9 +346,6 @@ insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-ppc'), LOOKUP_PACKAGE_ARCH('nosrc'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-amd64-msu'), LOOKUP_PACKAGE_ARCH('amd64-msu'));
-
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-amd64-msi'), LOOKUP_PACKAGE_ARCH('amd64-msi'));
+values (LOOKUP_CHANNEL_ARCH('channel-amd64-windows'), LOOKUP_PACKAGE_ARCH('amd64-windows'));
 
 commit;

@@ -23,7 +23,4 @@ insert into rhnContentSourceType (id, label) values
 insert into rhnContentSourceType (id, label) values
 (sequence_nextval('rhn_content_source_type_id_seq'), 'deb');
 insert into rhnContentSourceType (id, label) values
-(sequence_nextval('rhn_content_source_type_id_seq'), 'msu');
-insert into rhnContentSourceType (id, label) values
-(sequence_nextval('rhn_content_source_type_id_seq'), 'msi');
-
+(sequence_nextval('rhn_content_source_type_id_seq'), 'windows');
