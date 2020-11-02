@@ -22,7 +22,8 @@ const msgModuleTypes = {
     "amazonec2": t('Amazon EC2'),
     "googlece": t('Google Compute Engine'),
     "azure": t('Azure'),
-    "nutanixahv": t('Nutanix AHV')
+    "nutanixahv": t('Nutanix AHV'),
+    "netbox": t('NetBox')
 }
 
 function getHashId() {
@@ -117,7 +118,7 @@ class VirtualHostManager extends React.Component {
     }
 
     getCreateType() {
-        const types = ["file", "vmware", "kubernetes", "amazonec2", "googlece", "azure", "nutanixahv"];
+        const types = ["file", "vmware", "kubernetes", "amazonec2", "googlece", "azure", "nutanixahv", "netbox"];
         return types.includes(this.state.id) ? this.state.id : types[0];
     }
 
