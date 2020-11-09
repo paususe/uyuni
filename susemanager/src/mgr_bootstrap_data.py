@@ -1189,11 +1189,11 @@ DATA = {
         'PDID' : [-8, 2007], 'BETAPDID' : [2066], 'PKGLIST' : RES8 + RES8_X86,
         'DEST' : '/srv/www/htdocs/pub/repositories/res/8/bootstrap/'
     },
-    'alinux-7-x86_64' : {
-        'PDID' : [-14, 1683], 'BETAPDID' : [2065], 'PKGLIST' : RES7 + RES7_X86,
+    'alinux-2-x86_64' : {
+        'PDID' : [-19, 1683], 'BETAPDID' : [2065], 'PKGLIST' : RES7 + RES7_X86,
         'DEST' : '/srv/www/htdocs/pub/repositories/alinux/2/bootstrap/'
     },
-    'alinux-7-x86_64-uyuni' : {
+    'alinux-2-x86_64-uyuni' : {
         'BASECHANNEL' : 'alinux7-x86_64', 'PKGLIST' : RES7 + RES7_X86,
         'DEST' : '/srv/www/htdocs/pub/repositories/alinux/2/bootstrap/'
     },
