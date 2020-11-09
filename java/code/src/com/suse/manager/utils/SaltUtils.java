@@ -1280,6 +1280,11 @@ public class SaltUtils {
                                 .map(StateApplyResult::getChanges)
                                 .filter(res -> res.getStdout() != null)
                                 .map(CmdResult::getStdout);
+                Optional<String> alinuxReleaseFile =
+                        Optional.ofNullable(ret.getAlinuxReleaseFile())
+                                .map(StateApplyResult::getChanges)
+                                .filter(res -> res.getStdout() != null)
+                                .map(CmdResult::getStdout);
                 Optional<String> oracleReleaseFile =
                         Optional.ofNullable(ret.getOracleReleaseFile())
                                 .map(StateApplyResult::getChanges)
@@ -1291,10 +1296,11 @@ public class SaltUtils {
                                 .filter(res -> res.getStdout() != null)
                                 .map(CmdResult::getStdout);
                 if (rhelReleaseFile.isPresent() || centosReleaseFile.isPresent() ||
-                        oracleReleaseFile.isPresent() || resReleasePkg.isPresent()) {
+                        oracleReleaseFile.isPresent() || alinuxReleaseFile.isPresent() || 
+                        resReleasePkg.isPresent()) {
                     Set<InstalledProduct> products = getInstalledProductsForRhel(
                             imageInfo, resReleasePkg,
-                            rhelReleaseFile, centosReleaseFile, oracleReleaseFile);
+                            rhelReleaseFile, centosReleaseFile, oracleReleaseFile, alinuxReleaseFile);
                     imageInfo.setInstalledProducts(products);
                 }
             }
@@ -1358,6 +1364,11 @@ public class SaltUtils {
                 .map(StateApplyResult::getChanges)
                 .filter(ret -> ret.getStdout() != null)
                 .map(CmdResult::getStdout);
+        Optional<String> alinuxReleaseFile =
+                Optional.ofNullable(result.getAlinuxReleaseFile())
+                .map(StateApplyResult::getChanges)
+                .filter(ret -> ret.getStdout() != null)
+                .map(CmdResult::getStdout);
         Optional<String> oracleReleaseFile =
                 Optional.ofNullable(result.getOracleReleaseFile())
                 .map(StateApplyResult::getChanges)
@@ -1369,10 +1380,11 @@ public class SaltUtils {
                 .filter(ret -> ret.getStdout() != null)
                 .map(CmdResult::getStdout);
         if (rhelReleaseFile.isPresent() || centosReleaseFile.isPresent() ||
-                oracleReleaseFile.isPresent() || resReleasePkg.isPresent()) {
+                oracleReleaseFile.isPresent() || alinuxReleaseFile.isPresent() || 
+                resReleasePkg.isPresent()) {
             Set<InstalledProduct> products = getInstalledProductsForRhel(
                     server, resReleasePkg,
-                    rhelReleaseFile, centosReleaseFile, oracleReleaseFile);
+                    rhelReleaseFile, centosReleaseFile, oracleReleaseFile, alinuxReleaseFile);
             server.setInstalledProducts(products);
         }
         else if ("ubuntu".equalsIgnoreCase((String) result.getGrains().get("os"))) {
@@ -1746,11 +1758,12 @@ public class SaltUtils {
            Optional<String> resPackage,
            Optional<String> rhelReleaseFile,
            Optional<String> centosRelaseFile,
-           Optional<String> oracleReleaseFile) {
+           Optional<String> oracleReleaseFile,
+           Optional<String> alinuxReleaseFile) {
 
         Optional<RhelUtils.RhelProduct> rhelProductInfo =
                 RhelUtils.detectRhelProduct(server, resPackage,
-                        rhelReleaseFile, centosRelaseFile, oracleReleaseFile);
+                        rhelReleaseFile, centosRelaseFile, oracleReleaseFile, alinuxReleaseFile);
 
         if (!rhelProductInfo.isPresent()) {
             LOG.warn("Could not determine RHEL product type for minion: " +
@@ -1783,11 +1796,12 @@ public class SaltUtils {
             Optional<String> resPackage,
             Optional<String> rhelReleaseFile,
             Optional<String> centosRelaseFile,
-            Optional<String> oracleReleaseFile) {
+            Optional<String> oracleReleaseFile,
+            Optional<String> alinuxReleaseFile) {
 
          Optional<RhelUtils.RhelProduct> rhelProductInfo =
                  RhelUtils.detectRhelProduct(image, resPackage,
-                         rhelReleaseFile, centosRelaseFile, oracleReleaseFile);
+                         rhelReleaseFile, centosRelaseFile, oracleReleaseFile, alinuxReleaseFile);
 
          if (!rhelProductInfo.isPresent()) {
              LOG.warn("Could not determine RHEL product type for image: " +
