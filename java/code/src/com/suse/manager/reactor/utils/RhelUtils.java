@@ -36,7 +36,7 @@ public class RhelUtils {
     private static final Pattern ORACLE_RELEASE_MATCHER =
             Pattern.compile("(.+)\\srelease\\s([\\d.]+).*", Pattern.DOTALL);
     private static final Pattern ALINUX_RELEASE_MATCHER =
-            Pattern.compile("(.+)\\srelease\\s([\\d]+).([\\d]+).*", Pattern.DOTALL);
+            Pattern.compile("(.+)\\srelease\\s([\\d.]+)\\s*LTS\\s*\\((.+)\\).*", Pattern.DOTALL);
 
     /**
      * Information about RHEL based OSes.
@@ -164,24 +164,25 @@ public class RhelUtils {
             return Optional.of(new ReleaseFile(name, majorVersion, minorVersion, release));
         }
         else {
-            Matcher omatcher = ORACLE_RELEASE_MATCHER.matcher(releaseFile);
-            if (omatcher.matches()) {
-                String name =
-                        omatcher.group(1).replaceAll("(?i)server", "").replaceAll(" ", "");
-                String majorVersion = StringUtils.substringBefore(omatcher.group(2), ".");
-                String minorVersion = StringUtils.substringAfter(omatcher.group(2), ".");
-                return Optional.of(new ReleaseFile(name, majorVersion, minorVersion, ""));
-            }
-        } else { // TODO ALINUX VERIFY THIS IS CORRECT
             Matcher amatcher = ALINUX_RELEASE_MATCHER.matcher(releaseFile);
-            if(amatcher.matches()) {
+            if (amatcher.matches()) {
                 String name =
-                        amatcher.group(1).replaceAll("(?i)inux)", "").replaceAll(" ", "");
+                        amatcher.group(1).replaceAll("(?i)linux", "").replaceAll(" ", "");
                 String majorVersion = StringUtils.substringBefore(amatcher.group(2), ".");
                 String minorVersion = StringUtils.substringAfter(amatcher.group(2), ".");
-                return Optional.of(new ReleaseFile(name, majorVersion, minorVersion, ""));
+                String release = amatcher.group(3);
+                return Optional.of(new ReleaseFile(name, majorVersion, minorVersion, release);
+            } else {
+                Matcher omatcher = ORACLE_RELEASE_MATCHER.matcher(releaseFile);
+                if (omatcher.matches()) {
+                    String name =
+                            omatcher.group(1).replaceAll("(?i)server", "").replaceAll(" ", "");
+                    String majorVersion = StringUtils.substringBefore(omatcher.group(2), ".");
+                    String minorVersion = StringUtils.substringAfter(omatcher.group(2), ".");
+                    return Optional.of(new ReleaseFile(name, majorVersion, minorVersion, ""));
+                }
             }
-        }
+
         return Optional.empty();
     }
 
