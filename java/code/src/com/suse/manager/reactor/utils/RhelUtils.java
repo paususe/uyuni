@@ -171,7 +171,7 @@ public class RhelUtils {
                 String majorVersion = StringUtils.substringBefore(amatcher.group(2), ".");
                 String minorVersion = StringUtils.substringAfter(amatcher.group(2), ".");
                 String release = amatcher.group(3);
-                return Optional.of(new ReleaseFile(name, majorVersion, minorVersion, release);
+                return Optional.of(new ReleaseFile(name, majorVersion, minorVersion, release));
             } else {
                 Matcher omatcher = ORACLE_RELEASE_MATCHER.matcher(releaseFile);
                 if (omatcher.matches()) {
@@ -182,6 +182,7 @@ public class RhelUtils {
                     return Optional.of(new ReleaseFile(name, majorVersion, minorVersion, ""));
                 }
             }
+        }
 
         return Optional.empty();
     }
