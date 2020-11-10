@@ -38,6 +38,6 @@ insert into rhnPackageProvider (id, name) values
 insert into rhnPackageProvider (id, name) values
 (sequence_nextval('rhn_package_provider_id_seq'), 'Uyuni' );
 insert into rhnPackageProvider (id, name) values
-(sequence_nextval('rhn_package_provider_id_seq'), 'Alinux' );
+(sequence_nextval('rhn_package_provider_id_seq'), 'Alibaba' );
 
 commit;
