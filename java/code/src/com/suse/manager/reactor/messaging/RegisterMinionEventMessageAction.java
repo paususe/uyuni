@@ -785,7 +785,7 @@ public class RegisterMinionEventMessageAction implements MessageAction {
         if ("redhat".equalsIgnoreCase(grains.getValueAsString("os")) ||
                 "centos".equalsIgnoreCase(grains.getValueAsString("os")) ||
                 "oel".equalsIgnoreCase(grains.getValueAsString("os")) ||
-                "alinux".equalsIgnoreCase(grains.getValueAsString("os")) ||
+                "alinux".equalsIgnoreCase(grains.getValueAsString("os"))
                 ) {
             MinionList target = new MinionList(Arrays.asList(minionId));
             Optional<Result<String>> whatprovidesRes = saltApi.runRemoteCommand(target,
