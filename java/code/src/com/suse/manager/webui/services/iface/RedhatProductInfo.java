@@ -35,7 +35,7 @@ public class RedhatProductInfo {
      * @param whatProvidesResIn what provides res result
      */
     public RedhatProductInfo(Optional<String> centosReleaseContentIn, Optional<String> rhelReleaseContentIn,
-            Optional<String> oracleReleaseContentIn, Optional<String> alinuxReleaseContent, <String> whatProvidesResIn) {
+            Optional<String> oracleReleaseContentIn, Optional<String> alinuxReleaseContentIn, Optional<String> whatProvidesResIn) {
         this.oracleReleaseContent = oracleReleaseContentIn;
         this.alinuxReleaseContent = alinuxReleaseContentIn;
         this.centosReleaseContent = centosReleaseContentIn;
