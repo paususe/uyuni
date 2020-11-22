@@ -31,7 +31,7 @@ mgr_server_localhost_alias_absent:
 {%- if salt['file.file_exists']('/etc/oracle-release') %}
 {% set bootstrap_repo_url = 'https://' ~ salt['pillar.get']('mgr_server') ~ '/pub/repositories/oracle/' ~ grains['osmajorrelease'] ~ '/bootstrap/' %}
 
-{%- if salt['file.file_exists']('/etc/alinux-release') %}
+{%- elif salt['file.file_exists']('/etc/alinux-release') %}
 {% set bootstrap_repo_url = 'https://' ~ salt['pillar.get']('mgr_server') ~ '/pub/repositories/alinux/' ~ grains['osmajorrelease'] ~ '/bootstrap/' %}
 
 {%- elif salt['file.file_exists']('/usr/share/doc/sles_es-release') %}
