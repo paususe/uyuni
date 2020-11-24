@@ -356,7 +356,7 @@ public class RegistrationUtils {
         else if ("redhat".equalsIgnoreCase(grains.getValueAsString(OS)) ||
                  "centos".equalsIgnoreCase(grains.getValueAsString(OS)) ||
                  "oel".equalsIgnoreCase(grains.getValueAsString(OS)) ||
-                 "alinux".equalsIgnoreCase(grains.getValueAsString(OS))
+                 "alibaba cloud (aliyun)".equalsIgnoreCase(grains.getValueAsString(OS))
                  ) {
             Optional<RedhatProductInfo> redhatProductInfo = systemQuery.redhatProductInfo(server.getMinionId());
 
