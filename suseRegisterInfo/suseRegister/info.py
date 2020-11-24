@@ -32,7 +32,7 @@ def getInstalledProducts():
 def getRedHatLikeProducts():
     """
      1) if a RES release package (sles_es-release) is installed it is a RES.
-     2) if /etc/alinux-releae exists it is an Alinux
+     2) if /etc/alinux-release exists it is an Alinux
      3) if /etc/oracle-release exists it is an OracleLinux
      4) is it a centos system? check if /etc/centos-release file exists
      5) finally we can say it is a original RHEL (maybe:-)
