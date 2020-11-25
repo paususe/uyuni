@@ -32,7 +32,7 @@ mgr_server_localhost_alias_absent:
 {% set bootstrap_repo_url = 'https://' ~ salt['pillar.get']('mgr_server') ~ '/pub/repositories/oracle/' ~ grains['osmajorrelease'] ~ '/bootstrap/' %}
 
 {%- elif salt['file.file_exists']('/etc/alinux-release') %}
-{% set bootstrap_repo_url = 'https://' ~ salt['pillar.get']('mgr_server') ~ '/pub/repositories/aliyunlinux/' ~ grains['osmajorrelease'] ~ '/bootstrap/' %}
+{% set bootstrap_repo_url = 'https://' ~ salt['pillar.get']('mgr_server') ~ '/pub/repositories/aliyun/' ~ grains['osmajorrelease'] ~ '/bootstrap/' %}
 
 {%- elif salt['file.file_exists']('/usr/share/doc/sles_es-release') %}
 {% set bootstrap_repo_url = 'https://' ~ salt['pillar.get']('mgr_server') ~ '/pub/repositories/res/' ~ grains['osmajorrelease'] ~ '/bootstrap/' %}

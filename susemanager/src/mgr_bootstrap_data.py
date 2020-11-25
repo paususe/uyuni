@@ -1191,11 +1191,11 @@ DATA = {
     },
     'aliyunlinux2-x86_64' : {
         'PDID' : [-19, 1683], 'BETAPDID' : [2065], 'PKGLIST' : RES7 + RES7_X86,
-        'DEST' : '/srv/www/htdocs/pub/repositories/aliyunlinux/2/bootstrap/'
+        'DEST' : '/srv/www/htdocs/pub/repositories/aliyun/2/bootstrap/'
     },
     'aliyunlinux2-x86_64-uyuni' : {
         'BASECHANNEL' : 'aliyunlinux2-x86_64', 'PKGLIST' : RES7 + RES7_X86,
-        'DEST' : '/srv/www/htdocs/pub/repositories/aliyunlinux/2/bootstrap/'
+        'DEST' : '/srv/www/htdocs/pub/repositories/aliyun/2/bootstrap/'
     },
     'ubuntu-16.04-amd64' : {
         'PDID' : [-2, 1917], 'BETAPDID' : [2061], 'PKGLIST' : PKGLISTUBUNTU1604,
