@@ -14,7 +14,7 @@
 {% endif -%}
 {% elif grains['os_family'] == 'RedHat' %}
 {% if grains['osfullname'] == 'Alibaba Cloud Linux (Aliyun Linux)' %}
-{% set sls = includesls('Aliyun2', '') -%}
+{% set sls = includesls('Aliyun', '2') -%}
 {% else -%}
 {% set sls = includesls(grains['os'], grains['osrelease']) -%}
 {% endif -%}
