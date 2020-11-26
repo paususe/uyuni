@@ -1190,11 +1190,11 @@ DATA = {
         'DEST' : '/srv/www/htdocs/pub/repositories/res/8/bootstrap/'
     },
     'aliyunlinux2-x86_64' : {
-        'PDID' : [-19, 1683], 'BETAPDID' : [2065], 'PKGLIST' : RES7 + RES7_X86,
+        'PDID' : [-19, 1683], 'BETAPDID' : [2065], 'PKGLIST' : [pkg for pkg in RES7 if pkg not in "python-urllib3"] + RES7_X86,
         'DEST' : '/srv/www/htdocs/pub/repositories/aliyun/2/bootstrap/'
     },
     'aliyunlinux2-x86_64-uyuni' : {
-        'BASECHANNEL' : 'aliyunlinux2-x86_64', 'PKGLIST' : RES7 + RES7_X86,
+        'BASECHANNEL' : 'aliyunlinux2-x86_64', 'PKGLIST' : [pkg for pkg in RES7 if pkg not in "python-urllib3"] + RES7_X86,
         'DEST' : '/srv/www/htdocs/pub/repositories/aliyun/2/bootstrap/'
     },
     'ubuntu-16.04-amd64' : {
