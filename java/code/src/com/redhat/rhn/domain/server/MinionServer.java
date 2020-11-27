@@ -152,7 +152,7 @@ public class MinionServer extends Server implements SaltConfigurable {
     @Override
     public boolean doesOsSupportsMonitoring() {
         return isSLES12() || isSLES15() || isLeap15() || isUbuntu1804() || isUbuntu2004() || isRedHat6() ||
-                isRedHat7() || isRedHat8();
+                isRedHat7() || isRedHat8() || isAlinux2();
     }
 
     /**
@@ -210,6 +210,10 @@ public class MinionServer extends Server implements SaltConfigurable {
         return ServerConstants.REDHAT.equals(getOsFamily()) && getRelease().equals("8");
     }
 
+    private boolean isAlinux2() {
+        return ServerConstants.ALINUX.equals(getOsFamily()) && getRelease().equals("2");
+    }
+    
     /**
      * {@inheritDoc}
      */

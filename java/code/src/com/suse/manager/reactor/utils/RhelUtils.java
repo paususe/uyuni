@@ -35,6 +35,8 @@ public class RhelUtils {
             Pattern.compile("(.+)\\srelease\\s([\\d.]+)\\s*\\((.+)\\).*", Pattern.DOTALL);
     private static final Pattern ORACLE_RELEASE_MATCHER =
             Pattern.compile("(.+)\\srelease\\s([\\d.]+).*", Pattern.DOTALL);
+    private static final Pattern ALINUX_RELEASE_MATCHER =
+            Pattern.compile("(.+)\\srelease\\s([\\d.]+)\\s*LTS\\s*\\((.+)\\).*", Pattern.DOTALL);
 
     /**
      * Information about RHEL based OSes.
@@ -93,7 +95,7 @@ public class RhelUtils {
     }
 
     /**
-     * The content of the /etc/redhat|centos|oracle-release file.
+     * The content of the /etc/redhat|centos|oracle|alinux-release file.
      */
     public static class ReleaseFile {
 
@@ -147,7 +149,7 @@ public class RhelUtils {
     }
 
     /**
-     * Parse the /etc/redhat|centos|oracle-release
+     * Parse the /etc/redhat|centos|oracle-release|alinux
      * @param releaseFile the content of the release file
      * @return the parsed content of the release file
      */
@@ -162,15 +164,26 @@ public class RhelUtils {
             return Optional.of(new ReleaseFile(name, majorVersion, minorVersion, release));
         }
         else {
-            Matcher omatcher = ORACLE_RELEASE_MATCHER.matcher(releaseFile);
-            if (omatcher.matches()) {
+            Matcher amatcher = ALINUX_RELEASE_MATCHER.matcher(releaseFile);
+            if (amatcher.matches()) {
                 String name =
-                        omatcher.group(1).replaceAll("(?i)server", "").replaceAll(" ", "");
-                String majorVersion = StringUtils.substringBefore(omatcher.group(2), ".");
-                String minorVersion = StringUtils.substringAfter(omatcher.group(2), ".");
-                return Optional.of(new ReleaseFile(name, majorVersion, minorVersion, ""));
+                        amatcher.group(1).replaceAll("(?i)linux", "").replaceAll(" ", "");
+                String majorVersion = StringUtils.substringBefore(amatcher.group(2), ".");
+                String minorVersion = StringUtils.substringAfter(amatcher.group(2), ".");
+                String release = amatcher.group(3);
+                return Optional.of(new ReleaseFile(name, majorVersion, minorVersion, release));
+            } else {
+                Matcher omatcher = ORACLE_RELEASE_MATCHER.matcher(releaseFile);
+                if (omatcher.matches()) {
+                    String name =
+                            omatcher.group(1).replaceAll("(?i)server", "").replaceAll(" ", "");
+                    String majorVersion = StringUtils.substringBefore(omatcher.group(2), ".");
+                    String minorVersion = StringUtils.substringAfter(omatcher.group(2), ".");
+                    return Optional.of(new ReleaseFile(name, majorVersion, minorVersion, ""));
+                }
             }
         }
+
         return Optional.empty();
     }
 
@@ -190,12 +203,13 @@ public class RhelUtils {
      * @param rhelReleaseFile the content of /etc/redhat-release
      * @param centosReleaseFile the content of /etc/centos-release
      * @param oracleReleaseFile the content of /etc/oracle-release
+     * @param alinuxReleaseFile the content of /etc/alinux-release
      * @return the {@link RhelProduct}
      */
     public static Optional<RhelProduct> detectRhelProduct(
             Server server, Optional<String> resReleasePackage,
             Optional<String> rhelReleaseFile, Optional<String> centosReleaseFile,
-            Optional<String> oracleReleaseFile) {
+            Optional<String> oracleReleaseFile, Optional<String> alinuxReleaseFile) {
         String arch = server.getServerArch().getLabel().replace("-redhat-linux", "");
 
         // check first if it has RES channels assigned or the RES release package installed
@@ -225,6 +239,11 @@ public class RhelUtils {
         // next check if OracleLinux
         if (oracleReleaseFile.filter(StringUtils::isNotBlank).isPresent()) {
             return oracleReleaseFile.map(v -> detectPlainRHEL(v, arch, "OracleLinux"));
+        }
+        
+        // next check if Aliyun Linux
+        if (alinuxReleaseFile.filter(StringUtils::isNotBlank).isPresent()) {
+            return alinuxReleaseFile.map(v -> detectPlainRHEL(v, arch, "Alinux"));
         }
 
         // next check if Centos
@@ -256,12 +275,13 @@ public class RhelUtils {
      * @param rhelReleaseFile the content of /etc/redhat-release
      * @param centosReleaseFile the content of /etc/centos-release
      * @param oracleReleaseFile the content of /etc/oracle-release
+     * @param alinuxReleaseFile the content of /etc/alinux-release
      * @return the {@link RhelProduct}
      */
     public static Optional<RhelProduct> detectRhelProduct(
             ImageInfo image, Optional<String> resReleasePackage,
             Optional<String> rhelReleaseFile, Optional<String> centosReleaseFile,
-            Optional<String> oracleReleaseFile) {
+            Optional<String> oracleReleaseFile, Optional<String> alinuxReleaseFile) {
         String arch = image.getImageArch().getLabel().replace("-redhat-linux", "");
 
         // check first if it has RES channels assigned or the RES release package installed
@@ -292,6 +312,11 @@ public class RhelUtils {
             return oracleReleaseFile.map(v -> detectPlainRHEL(v, arch, "OracleLinux"));
         }
 
+        // next check if Aliyun Linux
+        if (alinuxReleaseFile.filter(StringUtils::isNotBlank).isPresent()) {
+            return alinuxReleaseFile.map(v -> detectPlainRHEL(v, arch, "Alinux"));
+        }
+        
         // next check if Centos
         if (centosReleaseFile.filter(StringUtils::isNotBlank).isPresent()) {
             return centosReleaseFile.map(v -> detectPlainRHEL(v, arch, "CentOS"));
@@ -305,6 +330,7 @@ public class RhelUtils {
         return Optional.empty();
     }
 
+    // TODO ALINUX NEEDS SOMETHING HERE???
     private static RhelProduct detectPlainRHEL(String releaseFileContent,
                                                String arch, String defaultName) {
         Optional<ReleaseFile> releaseFile = parseReleaseFile(releaseFileContent);

@@ -32,15 +32,20 @@ def getInstalledProducts():
 def getRedHatLikeProducts():
     """
      1) if a RES release package (sles_es-release) is installed it is a RES.
-     2) if /etc/oracle-release exists it is a OracleLinux
-     3) is it a centos system? check if /etc/centos-release file exists
-     4) finally we can say it is a original RHEL (maybe:-)
+     2) if /etc/alinux-release exists it is an Alinux
+     3) if /etc/oracle-release exists it is an OracleLinux
+     4) is it a centos system? check if /etc/centos-release file exists
+     5) finally we can say it is a original RHEL (maybe:-)
     """
     ret = None
     if packageExistsWhatprovides("sles_es-release-server"):
         ret = parseReleaseInfo()
         if ret:
             ret['name'] = "RES"
+    elif os.path.exists('/etc/alinux-release'):
+        ret = parseReleaseInfo(release='/etc/alinux-release')
+        if ret:
+            ret['name'] = "Alinux"
     elif os.path.exists('/etc/oracle-release'):
         ret = parseReleaseInfo(release='/etc/oracle-release')
         if ret:
