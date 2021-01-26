@@ -35,6 +35,8 @@ public class RhelUtils {
             Pattern.compile("(.+)\\srelease\\s([\\d.]+)\\s*\\((.+)\\).*", Pattern.DOTALL);
     private static final Pattern ORACLE_RELEASE_MATCHER =
             Pattern.compile("(.+)\\srelease\\s([\\d.]+).*", Pattern.DOTALL);
+    private static final Pattern ALIBABA_RELEASE_MATCHER =
+            Pattern.compile("(.+)\\srelease\\s([\\d]+).([\\d]+).*", Pattern.DOTALL);
 
     /**
      * Information about RHEL based OSes.
@@ -93,7 +95,7 @@ public class RhelUtils {
     }
 
     /**
-     * The content of the /etc/redhat|centos|oracle-release file.
+     * The content of the /etc/redhat|centos|oracle|alinux-release file.
      */
     public static class ReleaseFile {
 
@@ -147,7 +149,7 @@ public class RhelUtils {
     }
 
     /**
-     * Parse the /etc/redhat|centos|oracle-release
+     * Parse the /etc/redhat|centos|oracle|alinux-release
      * @param releaseFile the content of the release file
      * @return the parsed content of the release file
      */
@@ -170,7 +172,17 @@ public class RhelUtils {
                 String minorVersion = StringUtils.substringAfter(omatcher.group(2), ".");
                 return Optional.of(new ReleaseFile(name, majorVersion, minorVersion, ""));
             }
+        } else{ // TODO ALIBABA VERIFY THIS IS CORRECT
+            Matcher amatcher = ALIBABA_RELEASE_MATCHER.matcher(releaseFile);
+            if (amatcher.matches()) {
+                String name =
+                        amatcher.group(1).replaceAll("(?i)inux)", "").replaceAll(" ", "");
+                String majorVersion = StringUtils.substringBefore(amatcher.group(2), ".");
+                String minorVersion = StringUtils.substringAfter(amatcher.group(2), ".");
+                return Optional.of(new ReleaseFile(name, majorVersion, minorVersion, ""));
+            }
         }
+
         return Optional.empty();
     }
 
@@ -190,12 +202,13 @@ public class RhelUtils {
      * @param rhelReleaseFile the content of /etc/redhat-release
      * @param centosReleaseFile the content of /etc/centos-release
      * @param oracleReleaseFile the content of /etc/oracle-release
+     * @param alinuxReleaseFile the content of /etc/alinux-release
      * @return the {@link RhelProduct}
      */
     public static Optional<RhelProduct> detectRhelProduct(
             Server server, Optional<String> resReleasePackage,
             Optional<String> rhelReleaseFile, Optional<String> centosReleaseFile,
-            Optional<String> oracleReleaseFile) {
+            Optional<String> oracleReleaseFile, Optional<String> alibabaReleaseFile) {
         String arch = server.getServerArch().getLabel().replace("-redhat-linux", "");
 
         // check first if it has RES channels assigned or the RES release package installed
@@ -227,6 +240,11 @@ public class RhelUtils {
             return oracleReleaseFile.map(v -> detectPlainRHEL(v, arch, "OracleLinux"));
         }
 
+        // next check if Aliyun Linux
+        if (alibabaReleaseFile.filter(StringUtils::isNotBlank).isPresent()) {
+            return alibabaReleaseFile.map(v -> detectPlainRHEL(v, arch, "Alibaba"));
+        }
+
         // next check if Centos
         if (centosReleaseFile.filter(StringUtils::isNotBlank).isPresent()) {
             return centosReleaseFile.map(v -> detectPlainRHEL(v, arch, "CentOS"));
@@ -256,12 +274,13 @@ public class RhelUtils {
      * @param rhelReleaseFile the content of /etc/redhat-release
      * @param centosReleaseFile the content of /etc/centos-release
      * @param oracleReleaseFile the content of /etc/oracle-release
+     * @param alinuxReleaseFile the content of /etc/alinux-release
      * @return the {@link RhelProduct}
      */
     public static Optional<RhelProduct> detectRhelProduct(
             ImageInfo image, Optional<String> resReleasePackage,
             Optional<String> rhelReleaseFile, Optional<String> centosReleaseFile,
-            Optional<String> oracleReleaseFile) {
+            Optional<String> oracleReleaseFile, Optional<String> alibabaReleaseFile) {
         String arch = image.getImageArch().getLabel().replace("-redhat-linux", "");
 
         // check first if it has RES channels assigned or the RES release package installed
@@ -292,6 +311,10 @@ public class RhelUtils {
             return oracleReleaseFile.map(v -> detectPlainRHEL(v, arch, "OracleLinux"));
         }
 
+        if (alinuxReleaseFile.filter(StringUtils::isNotBlank).isPresent()) {
+            return alibabaReleaseFile.map(v -> detectPlainRHEL(v, arch, "Alibaba"));
+        }
+
         // next check if Centos
         if (centosReleaseFile.filter(StringUtils::isNotBlank).isPresent()) {
             return centosReleaseFile.map(v -> detectPlainRHEL(v, arch, "CentOS"));
@@ -305,6 +328,7 @@ public class RhelUtils {
         return Optional.empty();
     }
 
+    // TODO ALIBABA NEEDS SOMETHING HERE???
     private static RhelProduct detectPlainRHEL(String releaseFileContent,
                                                String arch, String defaultName) {
         Optional<ReleaseFile> releaseFile = parseReleaseFile(releaseFileContent);
