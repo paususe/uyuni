@@ -16,6 +16,8 @@ mgr_server_localhost_alias_absent:
 {% set os_base = 'centos' %}
 {%- elif "redhat" in grains['os']|lower %}
 {% set os_base = 'res' %}
+{%- elif "alibaba" in grains['os']|lower %}
+{% set os_base = 'alibaba' %}
 {%- elif "opensuse" in grains['oscodename']|lower %}
 {% set os_base = 'opensuse' %}
 {%- endif %}
@@ -31,11 +33,14 @@ mgr_server_localhost_alias_absent:
 {%- if salt['file.file_exists']('/etc/oracle-release') %}
 {% set bootstrap_repo_url = 'https://' ~ salt['pillar.get']('mgr_server') ~ '/pub/repositories/oracle/' ~ grains['osmajorrelease'] ~ '/bootstrap/' %}
 
+{%- elif salt['file.file_exists']('/etc/alinux-release') %}
+{% set bootstrap_repo_url = 'https://' ~ salt['pillar.get']('mgr_server') ~ '/pub/repositories/alibaba/' ~ grains['osmajorrelease'] ~ '/bootstrap/' %}
+
 {%- elif salt['file.file_exists']('/usr/share/doc/sles_es-release') %}
 {% set bootstrap_repo_url = 'https://' ~ salt['pillar.get']('mgr_server') ~ '/pub/repositories/res/' ~ grains['osmajorrelease'] ~ '/bootstrap/' %}
 
 {%- elif salt['file.file_exists']('/etc/centos-release') %}
-{# We try CentOS bootstrap repository first, if not avaiable then fallback to RES #}
+{# We try CentOS bootstrap repository first, if not available then fallback to RES #}
 {% set bootstrap_repo_url = 'https://' ~ salt['pillar.get']('mgr_server') ~ '/pub/repositories/centos/' ~ grains['osmajorrelease'] ~ '/bootstrap/' %}
 {% set bootstrap_repo_request = salt['http.query'](bootstrap_repo_url + 'repodata/repomd.xml', status=True, verify_ssl=False) %}
 {%- if bootstrap_repo_request['status'] == 901 %}
