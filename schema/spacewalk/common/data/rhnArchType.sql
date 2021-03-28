@@ -21,5 +21,7 @@ insert into rhnArchType (id, label, name) values
 	(sequence_nextval('rhn_archtype_id_seq'), 'deb', 'DEB');
 insert into rhnArchType (id, label, name) values
 	(sequence_nextval('rhn_archtype_id_seq'), 'tar', 'tar');
+insert into rhnArchType (id, label, name) values
+	(sequence_nextval('rhn_archtype_id_seq'), 'windows', 'Windows');
 commit;
 

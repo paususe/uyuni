@@ -110,6 +110,8 @@ insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'amd64-deb', 'AMD64-deb', lookup_arch_type('deb'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (sequence_nextval('rhn_package_arch_id_seq'), 'arm64-deb', 'ARM64-deb', lookup_arch_type('deb'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(sequence_nextval('rhn_package_arch_id_seq'), 'amd64-windows', 'amd64-windows', lookup_arch_type('windows'));
 
 commit;
 

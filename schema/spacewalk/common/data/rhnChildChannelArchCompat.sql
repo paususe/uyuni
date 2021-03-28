@@ -103,5 +103,8 @@ values (LOOKUP_CHANNEL_ARCH('channel-ppc64le'), LOOKUP_CHANNEL_ARCH('channel-ppc
 insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-arm64-deb'), LOOKUP_CHANNEL_ARCH('channel-arm64-deb'));
 
+insert into rhnChildChannelArchCompat (parent_arch_id, child_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-amd64-windows'), LOOKUP_CHANNEL_ARCH('channel-amd64-windows'));
+
 commit;
 

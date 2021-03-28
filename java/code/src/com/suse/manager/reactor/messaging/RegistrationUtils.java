@@ -207,6 +207,7 @@ public class RegistrationUtils {
         });
     }
 
+    // FIXME WINDOWS Implement code
     /**
      * Subscribes minion to channels
      *
