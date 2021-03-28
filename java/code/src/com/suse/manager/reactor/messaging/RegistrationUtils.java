@@ -356,7 +356,9 @@ public class RegistrationUtils {
         else if ("redhat".equalsIgnoreCase(grains.getValueAsString(OS)) ||
                  "centos".equalsIgnoreCase(grains.getValueAsString(OS)) ||
                  "oel".equalsIgnoreCase(grains.getValueAsString(OS)) ||
-                 "alibaba cloud (aliyun)".equalsIgnoreCase(grains.getValueAsString(OS))) {
+                 "alibaba cloud (aliyun)".equalsIgnoreCase(grains.getValueAsString(OS)) ||
+                 "windows".equalsIgnoreCase(grains.getValueAsString(OS))
+        ) {
             Optional<RedhatProductInfo> redhatProductInfo = systemQuery.redhatProductInfo(server.getMinionId());
 
             Optional<RhelUtils.RhelProduct> rhelProduct =
@@ -383,11 +385,19 @@ public class RegistrationUtils {
             }
         }
         else if ("debian".equalsIgnoreCase(grains.getValueAsString(OS))) {
-           SUSEProduct product = SUSEProductFactory.findSUSEProduct("debian-client",
-                   grains.getValueAsString("osmajorrelease"), null, grains.getValueAsString(OS_ARCH) + "-deb", false);
+            SUSEProduct product = SUSEProductFactory.findSUSEProduct("debian-client",
+                    grains.getValueAsString("osmajorrelease"), null, grains.getValueAsString(OS_ARCH) + "-deb", false);
+            if (product != null) {
+                return Collections.singleton(product);
+            }
+        }
+        else if ("windows".equalsIgnoreCase(grains.getValueAsString(OS))) {
+           SUSEProduct product = SUSEProductFactory.findSUSEProduct("windows-client",
+                   grains.getValueAsString("osrelease"), null, grains.getValueAsString(OS_ARCH) + "-win", false);
            if (product != null) {
                return Collections.singleton(product);
            }
+
         }
         LOG.warn("No product match found. OS grain is " + grains.getValueAsString(OS) +
                 ", arch is " + grains.getValueAsString(OS_ARCH));

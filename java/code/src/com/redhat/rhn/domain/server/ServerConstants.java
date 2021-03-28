@@ -29,6 +29,7 @@ public class ServerConstants {
     public static final String UBUNTU = "Ubuntu";
     public static final String REDHAT = "RedHat";
     public static final String ALIBABA = "Alibaba Cloud Linux (Aliyun Linux)";
+    public static final String WINDOWS = "Windows";
 
     private ServerConstants() {
 

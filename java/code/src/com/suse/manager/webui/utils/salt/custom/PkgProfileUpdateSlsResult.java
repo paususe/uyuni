@@ -42,6 +42,8 @@ public class PkgProfileUpdateSlsResult {
             "cmd_|-oraclerelease_|-cat /etc/oracle-release_|-run";
     public static final String PKG_PROFILE_ALIBABA_RELEASE =
             "cmd_|-alibabarelease_|-cat /etc/alinux-release_|-run";
+    public static final String PKG_PROFILE_WINDOWS_RELEASE =
+            "cmd_|-alibabarelease_|-cmd /c ver | findstr /v \"^$\"_|-run";
     public static final String PKG_PROFILE_WHATPROVIDES_SLES_RELEASE =
             "cmd_|-respkgquery_|-rpm -q --whatprovides 'sles_es-release-server'_|-run";
 
@@ -69,6 +71,9 @@ public class PkgProfileUpdateSlsResult {
 
     @SerializedName(PKG_PROFILE_ALIBABA_RELEASE)
     private StateApplyResult<CmdResult> alibabaReleaseFile;
+
+    @SerializedName(PKG_PROFILE_WINDOWS_RELEASE)
+    private StateApplyResult<CmdResult> windowsReleaseFile;
 
     @SerializedName(PKG_PROFILE_WHATPROVIDES_SLES_RELEASE)
     private StateApplyResult<CmdResult> whatProvidesResReleasePkg;
@@ -130,6 +135,11 @@ public class PkgProfileUpdateSlsResult {
      * @return the content of the file /etc/alinux-release
      */
     public StateApplyResult<CmdResult> getAlibabaReleaseFile() { return alibabaReleaseFile; }
+
+    /**
+     * @return the content of the call to VER on Windows
+     */
+    public StateApplyResult<CmdResult> getWindowsReleaseFile() { return windowsReleaseFile; }
 
     /**
      * @return the package that provides 'sles_es-release-server'
