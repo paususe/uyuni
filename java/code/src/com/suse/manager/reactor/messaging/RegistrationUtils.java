@@ -357,8 +357,7 @@ public class RegistrationUtils {
         else if ("redhat".equalsIgnoreCase(grains.getValueAsString(OS)) ||
                  "centos".equalsIgnoreCase(grains.getValueAsString(OS)) ||
                  "oel".equalsIgnoreCase(grains.getValueAsString(OS)) ||
-                 "alibaba cloud (aliyun)".equalsIgnoreCase(grains.getValueAsString(OS)) ||
-                 "windows".equalsIgnoreCase(grains.getValueAsString(OS))
+                 "alibaba cloud (aliyun)".equalsIgnoreCase(grains.getValueAsString(OS))
         ) {
             Optional<RedhatProductInfo> redhatProductInfo = systemQuery.redhatProductInfo(server.getMinionId());
 
@@ -394,7 +393,7 @@ public class RegistrationUtils {
         }
         else if ("windows".equalsIgnoreCase(grains.getValueAsString(OS))) {
            SUSEProduct product = SUSEProductFactory.findSUSEProduct("windows-client",
-                   grains.getValueAsString("osrelease"), null, grains.getValueAsString(OS_ARCH) + "-win", false);
+                   grains.getValueAsString("osrelease"), null, grains.getValueAsString(OS_ARCH) + "-windows", false);
            if (product != null) {
                return Collections.singleton(product);
            }
