@@ -216,6 +216,9 @@ public class MinionServer extends Server implements SaltConfigurable {
 
     private boolean isAmazon2() {
         return ServerConstants.AMAZON.equals(getOsFamily()) && getRelease().equals("2");
+
+    private boolean isWindows() { // TODO Probably needs expanding to each version of Windows: 10, 2019, etc (look at osrelease)
+        return ServerConstants.WINDOWS.equals(getOsFamily());
     }
 
     /**
