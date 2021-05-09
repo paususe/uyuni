@@ -426,7 +426,13 @@ public class RegisterMinionEventMessageAction implements MessageAction {
             String osrelease = getOsRelease(minionId, grains);
 
             String kernelrelease = grains.getValueAsString("kernelrelease");
-            String osarch = grains.getValueAsString("osarch");
+
+            String osarch;
+            if("Windows".equals(osfamily)) {
+                osarch = grains.getValueAsString(("cpuarch")).toLowerCase();
+            } else {
+                osarch = grains.getValueAsString("osarch");
+            }
 
             minion.setOs(osfullname);
             minion.setOsFamily(osfamily);
@@ -442,10 +448,12 @@ public class RegisterMinionEventMessageAction implements MessageAction {
 
             minion.setServerArch(
                     ServerFactory.lookupServerArchByLabel(osarch + "-redhat-linux"));
-            //ToDo Just a hacked version for ubuntu
+            //ToDo Just a hacked version for Debian/Ubuntu and Windows
             if (osfamily.equals("Debian")) {
                 minion.setServerArch(
                         ServerFactory.lookupServerArchByLabel(osarch + "-debian-linux"));
+            } else if (osfamily.equals("Windows")) {
+                minion.setServerArch(ServerFactory.lookupServerArchByLabel(osarch + "-windows"));
             }
             else {
                 minion.setServerArch(
@@ -731,6 +739,7 @@ public class RegisterMinionEventMessageAction implements MessageAction {
         server.getServerPaths().addAll(proxyPaths.orElse(Collections.emptySet()));
     }
 
+    // FIXME WINDOWS Implement something akin to capabilities
     private void giveCapabilities(MinionServer server, boolean isSaltSSH) {
         // Salt systems always have the script.run capability
         SystemManager.giveCapability(server.getId(), SystemManager.CAP_SCRIPT_RUN, 1L);
@@ -834,7 +843,9 @@ public class RegisterMinionEventMessageAction implements MessageAction {
         // java port of up2dataUtils._getOSVersionAndRelease()
         String osRelease = grains.getValueAsString("osrelease");
 
-        if ("redhat".equalsIgnoreCase(grains.getValueAsString("os")) ||
+        if ("windows".equalsIgnoreCase(grains.getValueAsString("os"))) {
+            return osRelease;
+        } else if ("redhat".equalsIgnoreCase(grains.getValueAsString("os")) ||
                 "centos".equalsIgnoreCase(grains.getValueAsString("os")) ||
                 "oel".equalsIgnoreCase(grains.getValueAsString("os")) ||
                 "alibaba cloud (aliyun)".equalsIgnoreCase(grains.getValueAsString("os")) ||

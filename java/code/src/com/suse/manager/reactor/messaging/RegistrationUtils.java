@@ -207,6 +207,7 @@ public class RegistrationUtils {
         });
     }
 
+    // FIXME WINDOWS Implement code
     /**
      * Subscribes minion to channels
      *
@@ -392,9 +393,9 @@ public class RegistrationUtils {
                 return Collections.singleton(product);
             }
         }
-        else if ("windows".equalsIgnoreCase(grains.getValueAsString(OS))) {
+        else if ("windows".equalsIgnoreCase(grains.getValueAsString(OS).toLowerCase())) {
            SUSEProduct product = SUSEProductFactory.findSUSEProduct("windows-client",
-                   grains.getValueAsString("osrelease"), null, grains.getValueAsString(OS_ARCH) + "-win", false);
+                   grains.getValueAsString("osrelease"), null, grains.getValueAsString(OS_ARCH) + "-windows", false);
            if (product != null) {
                return Collections.singleton(product);
            }
